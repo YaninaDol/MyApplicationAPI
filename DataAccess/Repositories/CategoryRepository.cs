@@ -1,5 +1,5 @@
 ﻿using DataAccess.Data;
-using DataAccess.Repositories;
+using Microsoft.EntityFrameworkCore;
 using RepositoriesLibrary;
 using RepositoriesLibrary.Interfaces;
 using RepositoriesLibrary.Models;
@@ -14,16 +14,34 @@ namespace DataAccess
     public class CategoryRepository : GenericRepository<Category>, ICategoryRep
     {
         public CategoryRepository(DataContext context) : base(context)
+
         {
         }
 
+
         public Category GetPopular()
         {
+            Category popular=new Category();
+            int max = 0;
+            foreach (var item in db.Categories.ToList())
+            {
+               int count= db.Products.Where(x=>x.CategoryId==item.Id).Count();
+                if (count > max)
+                {
+                    max = count;
+                    popular = item;
+                }
+              
+            }
+            return popular;
            
-           
-            return this.db.Categories.ToList()[0];
           
 
+        }
+        public int GetCount(int Id)
+        {
+
+            return db.Products.ToList().Where(x => x.CategoryId.Equals(Id)).Count();
         }
     }
 }

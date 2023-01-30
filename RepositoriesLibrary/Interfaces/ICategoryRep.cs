@@ -11,5 +11,6 @@ namespace RepositoriesLibrary
     public interface ICategoryRep:IGenericRepository<Category>
     {
         Category GetPopular();
+        int GetCount(int Id);
     }
 }

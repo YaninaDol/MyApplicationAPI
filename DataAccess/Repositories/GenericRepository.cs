@@ -28,7 +28,9 @@ namespace DataAccess
 
         public T Get(int id) 
         {
-            return db.Set<T>().Find(id);
+           
+                return db.Set<T>().Find(id);
+            
         }
 
         public IEnumerable<T> GetAll()=>db.Set<T>().ToList();

@@ -72,6 +72,23 @@ namespace MyApplicationAPI.Controllers
             return BadRequest();
         }
 
+        [HttpGet]
+        [Route("GetById")]
+
+        public IActionResult GetById(int ID)
+        {
+            // var nameIdentifier = this.HttpContext.User.Claims
+            //.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
+
+            var result = _unitOfWork.prodRep.Get(ID);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            else return BadRequest();
+            
+        }
+
         [HttpPost]
         [Route("Add")]
 

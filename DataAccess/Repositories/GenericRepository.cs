@@ -1,4 +1,5 @@
 ﻿using DataAccess.Data;
+using MyApplicationAPI.Cache;
 using RepositoriesLibrary.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -12,10 +13,11 @@ namespace DataAccess
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
        readonly protected DataContext db;
-
-        public GenericRepository(DataContext context)
+      private readonly ICacheService _cacheService;
+        public GenericRepository(DataContext context, ICacheService cacheService)
         {
             this.db = context;
+            this._cacheService = cacheService;
         }
 
         public void Create(T item) => db.Set<T>().Add(item); 
@@ -28,8 +30,22 @@ namespace DataAccess
 
         public T Get(int id) 
         {
-           
-                return db.Set<T>().Find(id);
+            //List<T> collection = _cacheService.GetData<List<T>>($"{T}");
+            //if (collection == null)
+            //{
+            //    var productSQL = await db.Set<T>().ToList();
+            //    if (productSQL.Count > 0)
+            //    {
+            //        productsCache = productSQL;
+            //        _cacheService.SetData($"{T}", productSQL, DateTimeOffset.Now.AddDays(1));
+
+
+
+            //    }
+            //}
+            //return collection;
+
+            return db.Set<T>().Find(id);
             
         }
 

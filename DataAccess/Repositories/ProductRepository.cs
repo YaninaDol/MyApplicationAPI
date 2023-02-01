@@ -81,8 +81,20 @@ namespace DataAccess
             else return false;
         }
 
+        public IEnumerable<Product> GetbyFilter(string brand, float from, float to)
+        {
+            List<Product> list= db.Products.ToList().Where(x => x.Name.Equals(brand) && x.Price >= from && x.Price <= to).ToList();
+            if (list.Count > 0)
+            {
+                return list;
 
+            }
+            else return db.Products.ToList();
+    }
 
     }
+
+
+   
 
 }

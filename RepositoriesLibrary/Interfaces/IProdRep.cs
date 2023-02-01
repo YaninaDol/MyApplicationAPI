@@ -16,6 +16,10 @@ namespace RepositoriesLibrary
 
         IEnumerable<Product> GetPopular();
         IEnumerable<string> GetBrand();
+
+
+        IEnumerable<Product> GetbyFilter(string brand, float from, float to);
+
         bool UpdateProduct(int id, Product item);
     }
 }

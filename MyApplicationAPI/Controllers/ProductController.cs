@@ -99,13 +99,25 @@ namespace MyApplicationAPI.Controllers
 
         }
 
+        [HttpGet]
+        [Route("GetFind")]
+
+        public IActionResult GetFind(string brand,  float from, float to)
+        {
+          
+                return Ok(_unitOfWork.prodRep.GetbyFilter(brand, from, to));
+           
+
+        }
+
+
         [HttpPost]
         [Route("Add")]
         
         public IResult Add([FromForm] string name, [FromForm] string model, [FromForm] float price,[FromForm] bool visible,[FromForm] int capacity,[FromForm] int sold, [FromForm] string image, [FromForm] int categoryId)
         {
             
-                 _unitOfWork.prodRep.Create(new Product() { Name = name, Model=model, Price = price,Capacity=capacity,Visible=visible,Sold=sold, Image = image, CategoryId = categoryId });
+                 _unitOfWork.prodRep.Create(new Product() { Name = name, Model=model, Price = price,Capacity=capacity,Visible=visible,Sold=sold, Image = image, CategoryId = categoryId,Popular=1 });
               
                 _unitOfWork.Commit();
                 return Results.Ok();
@@ -134,11 +146,11 @@ namespace MyApplicationAPI.Controllers
         [HttpPost]
         [Route("Update")]
 
-        public IResult Update([FromForm] int id, [FromForm] string name, [FromForm] string model, [FromForm] float price, [FromForm] bool visible, [FromForm] int capacity, [FromForm] int sold, [FromForm] string image, [FromForm] int categoryId)
+        public IResult Update([FromForm] int id, [FromForm] string name, [FromForm] string model, [FromForm] float price, [FromForm] bool visible, [FromForm] int capacity, [FromForm] int sold, [FromForm] string image, [FromForm] int categoryId, [FromForm] int popular)
 
         {
              
-               if( _unitOfWork.prodRep.UpdateProduct(id, new Product() {Id=id, Name = name, Model = model, Price = price, Capacity = capacity, Visible = visible, Sold = sold, Image = image, CategoryId = categoryId }))
+               if( _unitOfWork.prodRep.UpdateProduct(id, new Product() {Id=id, Name = name, Model = model, Price = price, Capacity = capacity, Visible = visible, Sold = sold, Image = image, CategoryId = categoryId,Popular=popular }))
             {
                 _unitOfWork.Commit();
                 return Results.Ok();

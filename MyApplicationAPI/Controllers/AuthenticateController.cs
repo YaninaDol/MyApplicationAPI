@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace MyApplicationAPI.Controllers
 {
@@ -30,7 +31,7 @@ namespace MyApplicationAPI.Controllers
         [Route("login")]
         public async Task<IActionResult> Login( Login model)
         {
-            
+           
             var user = await _userManager.FindByNameAsync(model.UserName);
             var d = _userManager.CheckPasswordAsync(user, model.Password);
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
@@ -113,6 +114,59 @@ namespace MyApplicationAPI.Controllers
 
             return Ok("Admin added!");
         }
+
+        [HttpPost]
+        [Route("updateUser")]
+        public async Task<IActionResult> updateUser(string userID,string UserName, string email )
+        {
+            var user = await _userManager.FindByIdAsync(userID);
+            if (user != null)
+            {
+                IdentityUser update = new()
+                {
+                    Id = user.Id,
+                    UserName = UserName,
+                    Email = email,
+                    PasswordHash = user.PasswordHash,
+                    SecurityStamp = Guid.NewGuid().ToString()
+                };
+
+                var res = await _userManager.UpdateAsync(update);
+                if (!res.Succeeded) { return StatusCode(StatusCodes.Status500InternalServerError, "Creation failed!"); }
+                if (await _roleManager.RoleExistsAsync(UserRoles.User))
+                    await _userManager.AddToRoleAsync(update, UserRoles.User);
+                return Ok("User update!");
+            }
+            else return BadRequest("Can't update!");
+
+        }
+
+        [HttpPost]
+        [Route("deleteUser")]
+
+        public async Task<IActionResult> deleteUser(string userID)
+        {
+            var user = await _userManager.FindByIdAsync(userID);
+            if (user != null)
+            {
+
+                var res = await _userManager.DeleteAsync(user);
+                     return Ok("User deleted!");
+            }
+            else return BadRequest("Can't delete!");
+
+        }
+        [HttpGet]
+        [Route("getUsers")]
+
+        public async Task<IActionResult> getUsers()
+        {
+           
+                return Ok(_userManager.Users.ToList());
+           
+
+        }
+
 
         private JwtSecurityToken GetToken(List<Claim> claimsList)
         {

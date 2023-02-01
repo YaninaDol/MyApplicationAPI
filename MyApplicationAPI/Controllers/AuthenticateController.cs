@@ -144,7 +144,7 @@ namespace MyApplicationAPI.Controllers
         [HttpPost]
         [Route("deleteUser")]
 
-        public async Task<IActionResult> deleteUser(string userID)
+        public async Task<IActionResult> deleteUser([FromForm] string userID)
         {
             var user = await _userManager.FindByIdAsync(userID);
             if (user != null)

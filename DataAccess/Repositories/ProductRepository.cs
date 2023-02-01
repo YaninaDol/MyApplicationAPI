@@ -58,6 +58,12 @@ namespace DataAccess
            
         }
 
+        public IEnumerable<ListProduct> GetOrders()
+        {
+            return db.ListProducts.ToList();
+
+        }
+
         public IEnumerable<Product> GetPopular()
         {
           return db.Products.Where(x => x.Popular == 1);

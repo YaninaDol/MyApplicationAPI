@@ -109,6 +109,17 @@ namespace MyApplicationAPI.Controllers
            
 
         }
+        [HttpGet]
+        [Route("GetOrders")]
+
+        public IActionResult GetOrders()
+        {
+
+            return Ok(_unitOfWork.prodRep.GetOrders());
+
+
+        }
+
 
 
         [HttpPost]

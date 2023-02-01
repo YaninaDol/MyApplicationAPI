@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using JWT_Token.Models;
 
 namespace RepositoriesLibrary
 {
@@ -21,5 +22,6 @@ namespace RepositoriesLibrary
         IEnumerable<Product> GetbyFilter(string brand, float from, float to);
 
         bool UpdateProduct(int id, Product item);
+        IEnumerable<ListProduct> GetOrders();
     }
 }

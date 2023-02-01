@@ -9,7 +9,7 @@ public partial class ListProduct
 
     public int ProductId { get; set; }
 
-    public int? UserId { get; set; }
+    public string? UserId { get; set; }
 
     public string? Status { get; set; }
 }

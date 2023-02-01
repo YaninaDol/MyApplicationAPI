@@ -11,7 +11,11 @@ namespace RepositoriesLibrary
 {
     public interface IProdRep : IGenericRepository<Product>
     {
-        bool Buy(int prodId,int userId);
+        void Buy(int prodId,string userId);
          IEnumerable<Product> GetByCategory(int ID);
+
+        IEnumerable<Product> GetPopular();
+        IEnumerable<string> GetBrand();
+        bool UpdateProduct(int id, Product item);
     }
 }

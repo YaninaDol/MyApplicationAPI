@@ -9,6 +9,7 @@ using RepositoriesLibrary.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,21 +23,18 @@ namespace DataAccess
 
         }
 
-        public bool Buy(int prodId, int userId)
+        public void Buy(int prodId, string userId)
         {
             Product product = db.Products.Where(x => x.Id == prodId).FirstOrDefault();
             // User person = _context.Users.Where(x => x.Id.Equals(UserID)).FirstOrDefault();
 
             if (product != null)
             {
-                try
-                {
-                    db.ListProducts.Add(new ListProduct() { ProductId = product.Id, UserId = userId, Status = "new" });
-                    return true;
-                }
-                catch { return false; }
+                
+                    db.ListProducts.Add(new ListProduct() { ProductId = product.Id,UserId=userId, Status = "new" });
+                
             }
-            else return false;
+            
         }
 
        public IEnumerable<Product> GetByCategory(int ID)
@@ -46,6 +44,45 @@ namespace DataAccess
             else return null;
             
         }
+        public IEnumerable<string> GetBrand()
+        {
+            List<string> brands = new List<string>();
+            foreach (var item in db.Products.ToList())
+            {
+                if(!brands.Any(x=>x.Equals(item.Name.ToString())))
+                {
+                    brands.Add(item.Name.ToString());
+                }
+            }
+            return brands;
+           
+        }
+
+        public IEnumerable<Product> GetPopular()
+        {
+          return db.Products.Where(x => x.Popular == 1);
+        }
+
+        public bool UpdateProduct(int id, Product item)
+        {
+            if (db.Products.Any(x => x.Id == id))
+            {
+                db.Products.Where(x => x.Id == id).FirstOrDefault().Name = item.Name;
+                db.Products.Where(x => x.Id == id).FirstOrDefault().Model = item.Model;
+                db.Products.Where(x => x.Id == id).FirstOrDefault().Price = item.Price;
+                db.Products.Where(x => x.Id == id).FirstOrDefault().Capacity = item.Capacity;
+                db.Products.Where(x => x.Id == id).FirstOrDefault().Visible = item.Visible;
+                db.Products.Where(x => x.Id == id).FirstOrDefault().Sold = item.Sold;
+                db.Products.Where(x => x.Id == id).FirstOrDefault().Image = item.Image;
+                db.Products.Where(x => x.Id == id).FirstOrDefault().CategoryId = item.CategoryId;
+                return true;
+
+            }
+            else return false;
+        }
+
+
+
     }
 
 }

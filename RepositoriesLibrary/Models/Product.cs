@@ -17,7 +17,7 @@
 
         public int? Capacity { get; set; }
         public int? Sold { get; set; }
-
+        public int? Popular { get; set; }
 
         public virtual Category? Category { get; set; }
 

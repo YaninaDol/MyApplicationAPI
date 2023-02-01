@@ -51,9 +51,6 @@ namespace DataAccess
 
         public IEnumerable<T> GetAll()=>db.Set<T>().ToList();
 
-        public void Update(T item)
-        {
-            db.Set<T>().Update(item);
-        }
+       
     }
 }

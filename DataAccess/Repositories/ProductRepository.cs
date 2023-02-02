@@ -31,7 +31,7 @@ namespace DataAccess
             if (product != null)
             {
                 
-                    db.ListProducts.Add(new ListProduct() { ProductId = product.Id,UserId=userId, Status = "new" });
+                    db.ListProducts.Add(new ListProduct() {Date=DateTime.Now.ToString(), ProductId = product.Id,UserId=userId, Status = "new" });
                 
             }
             

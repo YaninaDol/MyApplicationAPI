@@ -203,20 +203,3 @@ namespace MyApplicationAPI.Controllers
         }
     }
 }
-//{
-//    "userName": "admin2",
-//  "password": "Adminadmin_2",
-//  "email": "admin2@ukr.net"
-//}
-//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW4yIiwianRpIjoiN2EyMTlmY2YtNGVlMC00NTQ3LWI2OWUtZGQ3Njk0NTk4YzEyIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjpbIkFkbWluIiwiVXNlciJdLCJleHAiOjE2NzUwMzExODIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NzIxMSIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NzIxMSJ9.NW6DvIoBKr5FtDH79JrFDXahqqEoEpNHGEdocEKijK4
-
-//{
-//    "userName": "Valera86",
-//  "password": "Iambest_1!",
-//  "email": "valerabest@ukr.net"
-
-//ValeraBest86
-//ValeraBest86_!
-//Dunyasha1
-//Dunyasha1_!
-//}

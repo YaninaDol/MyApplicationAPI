@@ -117,9 +117,10 @@ namespace MyApplicationAPI.Controllers
 
         [HttpPost]
         [Route("updateUser")]
-        public async Task<IActionResult> updateUser(string userID,string UserName, string email )
+        public async Task<IActionResult> updateUser([FromForm] string userID, [FromForm] string UserName, [FromForm] string email )
         {
             var user = await _userManager.FindByIdAsync(userID);
+
             if (user != null)
             {
                 IdentityUser update = new()
@@ -130,8 +131,9 @@ namespace MyApplicationAPI.Controllers
                     PasswordHash = user.PasswordHash,
                     SecurityStamp = Guid.NewGuid().ToString()
                 };
+                await _userManager.DeleteAsync(user);
 
-                var res = await _userManager.UpdateAsync(update);
+                var res = await _userManager.CreateAsync(update);
                 if (!res.Succeeded) { return StatusCode(StatusCodes.Status500InternalServerError, "Creation failed!"); }
                 if (await _roleManager.RoleExistsAsync(UserRoles.User))
                     await _userManager.AddToRoleAsync(update, UserRoles.User);
@@ -164,6 +166,24 @@ namespace MyApplicationAPI.Controllers
            
                 return Ok(_userManager.Users.ToList());
            
+
+        }
+
+        [HttpGet]
+        [Route("getUserbyId")]
+
+        public async Task<IActionResult> getUserbyId(string IDuser)
+        {
+
+            var user = await _userManager.FindByIdAsync(IDuser);
+            if (user != null)
+            {
+
+               
+                return Ok(user);
+            }
+            else return BadRequest("Can't delete!");
+
 
         }
 

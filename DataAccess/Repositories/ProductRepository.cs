@@ -81,6 +81,7 @@ namespace DataAccess
                 db.Products.Where(x => x.Id == id).FirstOrDefault().Sold = item.Sold;
                 db.Products.Where(x => x.Id == id).FirstOrDefault().Image = item.Image;
                 db.Products.Where(x => x.Id == id).FirstOrDefault().CategoryId = item.CategoryId;
+                db.Products.Where(x => x.Id == id).FirstOrDefault().Popular = item.Popular;
                 return true;
 
             }

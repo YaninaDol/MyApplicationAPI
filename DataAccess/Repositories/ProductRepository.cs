@@ -25,7 +25,7 @@ namespace DataAccess
         public bool Buy(int prodId, int userId)
         {
             Product product = db.Products.Where(x => x.Id == prodId).FirstOrDefault();
-            // User person = _context.Users.Where(x => x.Id.Equals(UserID)).FirstOrDefault();
+           
 
             if (product != null)
             {
